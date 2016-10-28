@@ -43,7 +43,7 @@ return(data.frame(Image=x,Coverage=imCoverage,stringsAsFactors = F)) # return th
 
 
 
-ImageProcess=function(x,pix=1,offset=0.05){
+ImageProcess=function(x,pix=50,offset=0.05){
   im=readImage(x) # hold the original image for comparison
   im2=im # make a copy of the original image for processing
   colorMode(im2) = Grayscale # convert to grayscale
