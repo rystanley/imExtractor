@@ -43,7 +43,7 @@ return(data.frame(Image=x,Coverage=imCoverage,stringsAsFactors = F)) # return th
 
 
 
-ImageProcess=function(x,pix=1,offset=0.05){
+ImageProcess=function(x,pix=200,offset=0.05){
   im=readImage(x) # hold the original image for comparison
   im2=im # make a copy of the original image for processing
   colorMode(im2) = Grayscale # convert to grayscale
@@ -58,7 +58,9 @@ ImageProcess=function(x,pix=1,offset=0.05){
   Channel1=im3@.Data[,,1] # first grayscale channel
   Channel2=im3@.Data[,,2] # second grayscale channel
   Channel3=im3@.Data[,,3] # third grayscale channel
-  Coverage=(1-mean(c(sum(Channel1),sum(Channel2),sum(Channel3)))/length(as.vector(Channel1)))*100
+  stack <- Channel1+Channel2+Channel3 # add channels togegther
+  Coverage <- (1-(table(stack)[2]/sum(table(stack))))*100
+  #Coverage=(1-mean(c(sum(Channel1),sum(Channel2),sum(Channel3)))/length(as.vector(Channel1)))*100
   CoverageLab <- paste0(round(Coverage,1),"% coverage. ", x)
   
   #save the image with processed
