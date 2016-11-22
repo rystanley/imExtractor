@@ -43,25 +43,31 @@ return(data.frame(Image=x,Coverage=imCoverage,stringsAsFactors = F)) # return th
 
 
 
-ImageProcess=function(x,pix=200,offset=0.05){
+ImageProcess=function(x,pix=200,offset=0.05,sigma=7){
   im=readImage(x) # hold the original image for comparison
   im2=im # make a copy of the original image for processing
   colorMode(im2) = Grayscale # convert to grayscale
+  img=im2
+  im2=gblur(im2,sigma=sigma)
   im3=thresh(im2, pix, pix, offset) # adaptive thresholding based on a pix and offset parametes. Note threshold is applied to each grayscale channel
   im4=im3 # create a copy of the thresholded image which can be assigned the color mode for image appending
   colorMode(im4) = Color # assign the color mode to match original 'im'
-  xt=list(im,im4) # create a list of the images for the processing comparision
+  xt=list(im,im3) # create a list of the images for the processing comparision
   xt=combine(xt) # append images
-  
   
   #calculate coverage
   Channel1=im3@.Data[,,1] # first grayscale channel
   Channel2=im3@.Data[,,2] # second grayscale channel
   Channel3=im3@.Data[,,3] # third grayscale channel
   stack <- Channel1+Channel2+Channel3 # add channels togegther
-  Coverage <- (1-(table(stack)[2]/sum(table(stack))))*100
+  Coverage <- sum(!stack)/length(stack)*100
   #Coverage=(1-mean(c(sum(Channel1),sum(Channel2),sum(Channel3)))/length(as.vector(Channel1)))*100
   CoverageLab <- paste0(round(Coverage,1),"% coverage. ", x)
+  
+  im3@.Data[,,1]=stack
+  im3@.Data[,,2]=stack
+  im3@.Data[,,3]=stack
+  
   
   #save the image with processed
   png(paste0(gsub(".jpg","",x),"_processed.png"))
@@ -88,6 +94,7 @@ mydf <- as.data.frame(do.call(rbind,tt),stringsAsFactors=F)
 im=readImage("BCD1F1.jpg")
 im2=im
 colorMode(im2) = Grayscale
+im2=gblur(im2,sigma=sigma)
 im3=thresh(im2, 50, 50, 0.05)
 im4=im3
 colorMode(im4) = Color
