@@ -12,10 +12,35 @@ tt <- lapply(files,FUN=ImageProcess)
 Sys.time()-Start
 
 
-Output=ImageBatchProcess(dir="c:/Users/StanleyR/Documents/Image Analysis/mussel reproduction images july 2016/mussel mantle BCD july 2016/",
-                         month="July",year=2016,code="BCD")
+##Process Males
+setwd("f:/Gonads/mussel reproduction images july 2016/mussel mantle BCD july 2016/")
+files <- (Sys.glob("*.tif")) # identify any 
+
+females <- files[grep("F",files)]
+males <- setdiff(files,females)
+
+Output_Males=ImageBatchProcess(files=males,month="July",year=2016,code="BCD",
+                         sex="Male",pix=300,sigma=8,crop=150,offset=0.04)
+
+Output_Females=ImageBatchProcess(files=females,month="July",year=2016,code="BCD",
+                               sex="Female",pix=200,sigma=10,crop=150,offset=0.02)
 
 write.table(Output,"July_2016_BCD.csv",row.names = F)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Output2=ImageBatchProcess(dir="c:/Users/StanleyR/Documents/Image Analysis/mussel reproduction images may 2016/mussel mantle BCD may 2016/",
                          month="May",year=2016,code="BCD")
