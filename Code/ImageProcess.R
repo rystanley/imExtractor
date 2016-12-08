@@ -34,13 +34,17 @@ ImageProcess=function(x,pix=200,offset=0.01,sigma=3,crop=150){
   
   #combined the images for the summary output
   xt=list(im,im4) # create a list of the images for the processing comparision
-  xt=combine(xt) # append images
+  xt=EBImage::combine(xt) # append images
   
   #save the images in an output folder where the images are listed from. If not there create it. 
   if(length(which(list.files(getwd())=="Processed figures"))==0){dir.create(paste0(getwd(),"/Processed figures"))} # if there isn't a 'Figures and Data' folder for output create one
   
   #save the image with processed
-  png(paste0("Processed figures/",gsub(".jpg","",x),"_processed.png"),width=dim(im)[1],height = dim(im)[2],unit="px")
+  ImType <- unlist(strsplit(x, ".", fixed = TRUE))[2]
+  
+  if(ImType == "tif"){png(paste0("Processed figures/",gsub(".tif","",x),"_processed.png"),width=dim(im)[1],height = dim(im)[2],unit="px")}
+  if(ImType == "jpg"){png(paste0("Processed figures/",gsub(".jpg","",x),"_processed.png"),width=dim(im)[1],height = dim(im)[2],unit="px")}
+  
     display(xt,all=T,method="raster") #display the images in raster format
     text(x=dim(xt)[1]*0.05,y=dim(xt)[2]*0.05,label = CoverageLab,adj = c(0,1),font=2)
   dev.off()
