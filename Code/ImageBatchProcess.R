@@ -21,12 +21,11 @@ ImageBatchProcess=function(folder,month=NULL,year=NULL,code=NULL,pix=200,offset=
   if(is.null(year)){year="Not specified"}
   if(is.null(month)){month="Not specified"}
   if(is.null(code)){code="Not specified"}
-  if(is.null(sex)){sex="Not specified"}
   
   imagedata <- data.frame(Year=rep(year,nrow(output)),
                              Month=rep(month,nrow(output)),
                              Code=rep(code,nrow(output)),
-                             sex=rep(sex,nrow(output)),stringsAsFactors=F)
+                             stringsAsFactors=F)
   
   output=cbind(imagedata,output)
   
