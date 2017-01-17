@@ -1,12 +1,12 @@
-ImageBatchProcess=function(dir,month=NULL,year=NULL,code=NULL){
+ImageBatchProcess=function(folder,month=NULL,year=NULL,code=NULL,pix=200,offset=0.01,sigma=3,crop=150){
   
-  setwd(dir) # set working directory to dir
+  setwd(folder) # set working directory to folder
   
   files <- (Sys.glob("*.tif")) # identify any 
   
   Start=Sys.time() # timing funciton 
   
-  ImageMetaData <- lapply(files,FUN=ImageProcess)
+  ImageMetaData <- lapply(files,FUN=ImageProcess,pix=pix,offset=offset,sigma=sigma,crop=crop)
   
   Timelog <- Sys.time()-Start
   Timelog <- round(as.numeric(Timelog,units="mins"),2)
