@@ -1,6 +1,8 @@
 
 ImageBatchProcess=function(folder,month=NULL,year=NULL,code=NULL,pix=200,offset=0.01,sigma=3,crop=150){
   
+  curdir <- getwd() #current working directory
+  
   setwd(folder) # set working directory to folder
 
   files <- (Sys.glob("*.tif")) # identify any 
@@ -29,6 +31,8 @@ ImageBatchProcess=function(folder,month=NULL,year=NULL,code=NULL,pix=200,offset=
   output=cbind(imagedata,output)
   
   print(paste("Elapsed time to process",nrow(output),"Images ~",Timelog,"minutes",sep=" "))
+  
+  setwd(curdir) #back to current working directory
   
   return(output)
   
