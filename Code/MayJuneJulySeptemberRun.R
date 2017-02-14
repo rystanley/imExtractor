@@ -47,9 +47,10 @@ for(i in Folders){
     
 } #end of i folders
 
-save.image(paste0(rootdir,"ImageAnalysisOutput.RData")) # 
+save.image(paste0(rootdir,"ImageAnalysisOutput_Aug.RData")) # 
 
-Output[Output$Month == "september","Month"] = "September" #some of the months lower and upper case names
+#Output[Output$Month == "september","Month"] = "September" #some of the months lower and upper case names
 
 #Save final output csv
-write.csv(Output,paste0(rootdir,"ImageOutput_MayJuneJuly_September.csv"),row.names = F)
+#write.csv(Output,paste0(rootdir,"ImageOutput_MayJuneJuly_September.csv"),row.names = F)
+write.csv(Output,paste0(rootdir,"ImageOutput_August.csv"),row.names = F)
