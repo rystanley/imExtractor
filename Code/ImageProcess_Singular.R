@@ -1,9 +1,10 @@
 ImageProcess_single=function(x,pix=200,offset=0.01,sigma=3,crop=150){
   
+  rootdir <- getwd() #save working directory
   
   im=suppressWarnings(readImage(x)) # hold the original image for comparison. Since the Tiffs have some missing compression encoding the readImage function will spit out a warning, which are harmless. 
   
-  setwd(dirname(x))
+  setwd(dirname(x)) #set functions directory to the parent directory of the image
   
   #Crop the scale bar off
   if(is.numeric(crop)){
@@ -53,5 +54,7 @@ ImageProcess_single=function(x,pix=200,offset=0.01,sigma=3,crop=150){
   dev.off()
   
   return(data.frame(Image=x,Coverage=Coverage,stringsAsFactors = F)) # return the processed data.
+  
+  setwd(rootdir) # back to working directory
   
 }
