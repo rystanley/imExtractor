@@ -1,4 +1,10 @@
-ImageProcess_single=function(x,pix=200,offset=0.01,sigma=3,crop=150){
+ImageProcess_single=function(path,pix=200,offset=0.01,sigma=3,crop=150){
+  
+  #path -- The full or relative file path for the target image.
+  #pix -- Defines the number of pixels to be used in adaptive thresholding. Here a threshold is applied by a locally moving filter. 
+  #offset -- Thresholding offset from the averaged pixel value . In this case each group of pixels an average will be used to define what is 'target' (e.g. tissue) and what is 'background' this offset will define how far off the average you want to make this delineation.
+  #sigma -- This parameter repesentes the standard deviation of the Gaussian filter used for blurring.
+  #crop -- Optional parameter defining the number of pixels to trim off the bottom of the image if required. This parameter is useful if a scalebar is added to the image.
   
   rootdir <- getwd() #save working directory
   
@@ -6,7 +12,7 @@ ImageProcess_single=function(x,pix=200,offset=0.01,sigma=3,crop=150){
   
   setwd(dirname(x)) #set functions directory to the parent directory of the image
   
-  #Crop the scale bar off
+  #Crop bottom
   if(is.numeric(crop)){
     im <- im[,1:(dim(im)[2]-crop),]
     }
@@ -40,13 +46,13 @@ ImageProcess_single=function(x,pix=200,offset=0.01,sigma=3,crop=150){
   xt=EBImage::combine(xt) # append images
   
   #save the images in an output folder where the images are listed from. If not there create it. 
-  if(length(which(list.files(getwd())=="Processed figures"))==0){dir.create(paste0(getwd(),"/Processed figures"))} # if there isn't a 'Figures and Data' folder for output create one
+  if(length(which(list.files(getwd())=="Processed images"))==0){dir.create(paste0(getwd(),"/Processed images"))} # if there isn't a 'images and Data' folder for output create one
   
   #save the image with processed
   ImType <- unlist(strsplit(x, ".", fixed = TRUE))[2]
   
-  if(ImType == "tif"){png(paste0(getwd(),"/Processed figures/",gsub(".tif","",gsub("/","",gsub(getwd(),"",x))),"_processed.png"),width=dim(im)[1],height = dim(im)[2],unit="px")}
-  if(ImType == "jpg"){png(paste0(getwd(),"/Processed figures/",gsub(".jpg","",gsub("/","",gsub(getwd(),"",x))),"_processed.png"),width=dim(im)[1],height = dim(im)[2],unit="px")}
+  if(ImType == "tif"){png(paste0(getwd(),"/Processed images/",gsub(".tif","",gsub("/","",gsub(getwd(),"",x))),"_processed.png"),width=dim(im)[1],height = dim(im)[2],unit="px")}
+  if(ImType == "jpg"){png(paste0(getwd(),"/Processed images/",gsub(".jpg","",gsub("/","",gsub(getwd(),"",x))),"_processed.png"),width=dim(im)[1],height = dim(im)[2],unit="px")}
   
     display(xt,all=T,method="raster") #display the images in raster format
     text(x=dim(xt)[1]*0.05,y=dim(xt)[2]*0.05,label = CoverageLab,adj = c(0,1),font=2)
