@@ -1,5 +1,8 @@
 # **imExtractor**
 
+[![DOI](https://zenodo.org/badge/72203215.svg)](https://zenodo.org/badge/latestdoi/72203215)
+
+
 The goal of **imExtractor** is to provide a simple and flexible tool to analyze images as binary thresholds. imExtractor functions are wrappers which integrate processing steps of [EBImage](https://bioconductor.org/packages/release/bioc/html/EBImage.html) and as such are not compiled as a stand alone package. However functions can be directly soured into the R workspace with instructions [_here_](#installation). Example application of this code is [available](#exampleuse) and is based on an image of blue mussel (_mytilus edulis_) gonad stored within the [vignettes](github.com/rystanley/imextractor/vignettes) folder.
 
 ***
