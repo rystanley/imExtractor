@@ -36,6 +36,10 @@ Pull request how-to:
 
 A Zenodo DOI is also avaiable for the most recent release of **imExtractor**:
 
+[![DOI](https://zenodo.org/badge/72203215.svg)](https://zenodo.org/badge/latestdoi/72203215)
+
+Stanley, R.R.E. (2017).imExtractor: a simple and flexible tool to analyze images as binary thresholds. DOI:10.5281/zenodo.802877
+
 
 ***
 # **Installation**
